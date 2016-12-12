@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JacksonJsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.qxd.model.Local;
@@ -22,8 +22,8 @@ public class LocalRedisTemplate {
     }
     
     @Bean
-    public JacksonJsonRedisSerializer<Local> jacksonJsonRedisJsonSerializer() {
-    	JacksonJsonRedisSerializer<Local> jacksonJsonRedisJsonSerializer = new JacksonJsonRedisSerializer<>(Local.class);
+    public Jackson2JsonRedisSerializer<Local> jacksonJsonRedisJsonSerializer() {
+    	Jackson2JsonRedisSerializer<Local> jacksonJsonRedisJsonSerializer = new Jackson2JsonRedisSerializer<>(Local.class);
     	return jacksonJsonRedisJsonSerializer;
     }
 
