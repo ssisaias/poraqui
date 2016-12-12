@@ -9,7 +9,8 @@ public class HomeController {
 
 	@RequestMapping(value={"/bla"}, method = {RequestMethod.GET, RequestMethod.POST})
 	public String uahauh(){
-		return "views/index";
+		System.out.println("HIT");
+		return "classpath:templates/index";
 	}
 	
 }
