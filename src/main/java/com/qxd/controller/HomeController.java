@@ -9,7 +9,7 @@ public class HomeController {
 
 	@RequestMapping(value={"/"}, method = RequestMethod.POST)
 	public String uahauh(){
-		
+		return "views/index";
 	}
 	
 }
