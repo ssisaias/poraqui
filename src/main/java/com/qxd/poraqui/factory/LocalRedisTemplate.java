@@ -9,7 +9,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.qxd.poraqui.model.Local;
 
-
+ 
 public class LocalRedisTemplate {
 	
 	@Autowired
