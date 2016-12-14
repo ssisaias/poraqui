@@ -1,9 +1,15 @@
 package com.qxd.poraqui.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.qxd.poraqui.enumtype.TipoAcessibilidade;
 
+@Entity
 public class Local {
-	
+	@Id
+	@GeneratedValue
 	public double latitude;
 	public double longitude;
 	public TipoAcessibilidade acessibilidade;
