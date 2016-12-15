@@ -1,12 +1,67 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Deu certo!</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    th:with="currentPage='inicio'">
 
-	<h1>Felipe</h1>
+	<head>
+	
+	    <title>PorAqui</title>
+	    
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <meta name="msapplication-tap-highlight" content="no"/>
+	    <meta name="description" content=""/>
+	    <meta name="keywords" content=""/>
+	    
+	    <link rel="stylesheet" th:href="@{/material/materialize/fonts/icons/material-icons.css}"/>
+	    <link rel="stylesheet" th:href="@{/material/materialize/fonts/icons/material-icons-google.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/css/materialize.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf-helpers.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+	    
+	</head>
 
-</body>
+	<body class="root grey lighten-3">
+			
+		<div th:replace="views/base/sidenav :: sidenav"></div>
+		<div th:replace="views/base/header :: header"></div>
+		
+		<main class="sidenav-opened full-height relative"> 
+	        <div class="main-container no-padding" id="map">
+	        	
+	        </div>
+	    </main>
+	    
+		<div id="modal-criar-local" class="modal">
+			<div class="modal-content">
+			
+			</div>
+			<div class="modal-footer">
+				<button class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</button>
+				<button class="modal-action modal-close waves-effect waves-green btn-flat btn-ok">OK</button>
+			</div>
+		</div>            	
+	
+		<!-- MENSAGENS DE ALERTA -->
+		<div th:each="alert : ${alertas}" 
+			class="alert-message" 
+			th:attr="data-type=${alert.type},data-delay=${alert.delay}" 
+			th:text="${alert.text}"></div>
+		
+	    <div class="mf-foreground white" ></div>
+				
+		<script type="text/javascript" th:src="@{/material/plugins/jquery/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/material/plugins/cookie/cookie.js}"></script>
+		<script type="text/javascript" th:src="@{/material/materialize/js/bin/materialize.js}"></script>
+		<script type="text/javascript" th:src="@{/material/js/mf.js}"></script>
+		
+		<script type="text/javascript" th:src="@{/js/index/maps.js}"></script>
+		<script type="text/javascript" th:src="@{/js/index/index.js}"></script>
+		
+		<script th:src="@{https://maps.googleapis.com/maps/api/js(key=AIzaSyBoBQcMnMYMQUPyorTXHqF1UjgpP4iflrg,libraries=places,callback=initMap)}"></script>
+			
+	</body>
+
 </html>

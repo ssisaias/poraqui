@@ -1,11 +1,11 @@
 package com.qxd.poraqui.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-/*
- * Repositorio Redis do Local 
- */
-@Repository
-public class LocalRepository {
+import com.qxd.poraqui.model.Local;
+
+public interface LocalRepository extends JpaRepository<Local, Integer> {
 	
+	Local findById(Long id);
+
 }

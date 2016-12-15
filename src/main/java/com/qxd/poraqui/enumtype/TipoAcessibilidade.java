@@ -3,18 +3,19 @@ package com.qxd.poraqui.enumtype;
 public enum TipoAcessibilidade {
 
 	VISUAL("Visual"), FISICA("Fisica"), AUDITIVA("Auditiva"), MENTAL("Mental");
+	
+	private String tipoAcessibilidade;
 
-	TipoAcessibilidade(String tipoAcessibilidade) {
+	private TipoAcessibilidade(String tipoAcessibilidade) {
 		this.tipoAcessibilidade = tipoAcessibilidade;
 	}
 
-	public String getCurso() {
+	public String getTipoAcessibilidade() {
 		return tipoAcessibilidade;
 	}
 
-	public void setCurso(String tipoAcessibilidade) {
+	public void setTipoAcessibilidade(String tipoAcessibilidade) {
 		this.tipoAcessibilidade = tipoAcessibilidade;
 	}
 
-	private String tipoAcessibilidade;
 }
