@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.qxd.poraqui.model.Avaliacao;
 import com.qxd.poraqui.model.Local;
 
 @Service
@@ -16,5 +17,7 @@ public interface LocalService {
 	Local save(Local local);
 	
 	boolean remove(Local local);
+	
+	Avaliacao addAvaliacao(Avaliacao avaliacao);
 	
 }

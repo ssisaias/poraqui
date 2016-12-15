@@ -17,6 +17,7 @@
 	    <link rel="stylesheet" th:href="@{/material/materialize/fonts/icons/material-icons.css}"/>
 	    <link rel="stylesheet" th:href="@{/material/materialize/fonts/icons/material-icons-google.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/css/materialize.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/plugins/jquery/jquery-rate.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf-helpers.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
@@ -36,13 +37,60 @@
 	    
 		<div id="modal-criar-local" class="modal">
 			<div class="modal-content">
-			
+				<form class="row">
+					<div class="col s12 input-field">
+						<input type="text" maxlength="255" name="nome" id="nome"/>
+						<label for="nome">Nome</label>
+					</div>
+					
+					<div class="col s12 input-field">
+						<textarea class="materialize-textarea" maxlength="1024" name="descricao" id="descricao"></textarea>
+						<label for="descricao">Descrição</label>
+					</div>
+					
+					<div class="col s12">
+						<label for="acessibilidade">Tipo de Acessibilidade</label>
+						<select id="acessibilidade" name="acessibilidade"  class="browser-default">
+                       		<option th:each="a : ${acessibilidades}"
+                       				th:value="${a}" 
+                       				th:text="${a.tipoAcessibilidade}" >
+                       		</option>
+						</select> 
+					</div>
+					
+					<input type="hidden" name="latitude"/>
+					<input type="hidden" name="longitude"/>
+					
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</button>
 				<button class="modal-action modal-close waves-effect waves-green btn-flat btn-ok">OK</button>
 			</div>
-		</div>            	
+		</div>  
+		
+		<div id="modal-avaliar" class="modal">
+			<div class="modal-content">
+				<form class="row">
+					<div class="col s12 rate-modal">
+						
+					</div>
+					
+					<div class="col s12 input-field">
+						<textarea class="materialize-textarea" maxlength="1024" name="comentario" id="comment"></textarea>
+						<label for="comment">Comentário</label>
+					</div>
+					
+					<input type="hidden" name="value" value="5"/>
+					<input type="hidden" name="local_id"/>
+					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</button>
+				<button class="modal-action modal-close waves-effect waves-green btn-flat btn-ok">OK</button>
+			</div>
+		</div>           	
 	
 		<!-- MENSAGENS DE ALERTA -->
 		<div th:each="alert : ${alertas}" 
@@ -53,6 +101,7 @@
 	    <div class="mf-foreground white" ></div>
 				
 		<script type="text/javascript" th:src="@{/material/plugins/jquery/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/material/plugins/jquery/jquery-rate.js}"></script>
 		<script type="text/javascript" th:src="@{/material/plugins/cookie/cookie.js}"></script>
 		<script type="text/javascript" th:src="@{/material/materialize/js/bin/materialize.js}"></script>
 		<script type="text/javascript" th:src="@{/material/js/mf.js}"></script>

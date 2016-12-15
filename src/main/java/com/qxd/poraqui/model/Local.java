@@ -1,9 +1,16 @@
 package com.qxd.poraqui.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.qxd.poraqui.enumtype.TipoAcessibilidade;
 
 @Entity
@@ -18,12 +25,17 @@ public class Local {
 	private double latitude;
 	private double longitude;
 	
+	@Enumerated(EnumType.STRING)
 	private TipoAcessibilidade acessibilidade;
+	
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE }, mappedBy = "local")
+	@JsonManagedReference
+	private List<Avaliacao> avaliacoes;
 
 	public Local() {}
-	
+
 	public Local(Long id, String nome, String descricao, double latitude, double longitude,
-			TipoAcessibilidade acessibilidade) {
+			TipoAcessibilidade acessibilidade, List<Avaliacao> avaliacoes) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -31,7 +43,10 @@ public class Local {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.acessibilidade = acessibilidade;
+		this.avaliacoes = avaliacoes;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -81,6 +96,12 @@ public class Local {
 		this.acessibilidade = acessibilidade;
 	}
 
+	public List<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
 	
+	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
+	}
 	
 }

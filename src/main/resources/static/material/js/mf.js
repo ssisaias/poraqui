@@ -58,16 +58,6 @@ var mf_base = function() {
             $('.phone').mask('(00) 00000-0000', {reverse: false});
             $('.cpf').mask('000.000.000-00', {reverse: false});
             $('.money').mask('000.000.000.000.000,00', {reverse: true});
-            
-            $("form").submit(function(event) {
-            	
-            	$("input.money").each(function(_, el) {
-            		$(el).val( $(el).val().replace(/[.,]/g, function(x) {
-            		    return x == ',' ? '.' : '';
-            		}) );
-            	});
-            	            	
-            });
         } catch (err) {
             // ...
         }
@@ -101,43 +91,48 @@ var mf_base = function() {
     	
     }
     
+    var getIconByType = function(type) {
+		return (
+			(type == 'info')   ? 'info':
+			(type == 'warning')? 'warning':
+			(type == 'success')? 'check':
+			(type == 'error')  ? 'error': ''
+		);
+	}
+	var getColorByType = function(type) {
+		
+		return (
+			(type == 'info')    ? 'blue':
+			(type == 'warning') ? 'deep-orange':
+			(type == 'success') ? 'green':
+			(type == 'error')   ? 'red': 'black'
+		);
+	}
+	
+    
     var initAlerts = function() {
-    	
-    	var getIconByType = function(type) {
-    		return (
-    			(type == 'info')   ? 'info':
-    			(type == 'warning')? 'warning':
-    			(type == 'success')? 'check':
-    			(type == 'error')  ? 'error': ''
-    		);
-    	}
-    	var getColorByType = function(type) {
-    		
-    		return (
-    			(type == 'info')    ? 'blue':
-    			(type == 'warning') ? 'deep-orange':
-    			(type == 'success') ? 'green':
-    			(type == 'error')   ? 'red': 'black'
-    		);
-    	}
     	
     	var delayAmount = 0;
    		$(".alert-message").each(function(_, el) {
    			$(el).remove();
-    			var text = $(el).text();
-        		var type = $(el).data("type").toLowerCase();
-        		var delay = $(el).data("delay");
-        		var icon = getIconByType(type);
-        		var color = getColorByType(type);
-        		var content = $('<div class="valign-wrapper"><i class="material-icons ' + color + '-text">' + icon + '</i><span class="' + color + '-text">' + text + '</span></div>');
-
-        	setTimeout(function() {    			
-        		Materialize.toast(content, delay, 'alert-' + type + ' rounded');
-    		}, delayAmount);
+			var text = $(el).text();
+    		var type = $(el).data("type").toLowerCase();
+    		var delay = $(el).data("delay");
+    		
+    		showAlert(text, type, delayAmount, delay);
         	
         	delayAmount += 500;
-        	
        	});
+    }
+    
+    var showAlert = function(text, type, delayAmount, delay) {
+    	var icon = getIconByType(type);
+		var color = getColorByType(type);
+		var content = $('<div class="valign-wrapper"><i class="material-icons ' + color + '-text">' + icon + '</i><span class="' + color + '-text">' + text + '</span></div>');
+
+    	setTimeout(function() {    			
+    		Materialize.toast(content, delay, 'alert-' + type + ' rounded');
+		}, delayAmount);
     }
 
     var hideForeground = function() {
@@ -211,6 +206,30 @@ var mf_base = function() {
             initDataTableInElement(table);
         });
     }
+    
+    var initLimit = function() {
+    	$(".limit").each(function(_, e) {
+    		var el = $(e);
+    		var text = el.text();
+    		var maxLength = el.data("max-length");
+    		
+    		if(text && maxLength && text.length > maxLength) {
+    			el.addClass("tooltipped");
+        		el.attr("data-tooltip", text);
+        		el.tooltip();
+        		
+    			text = text.substring(0, maxLength) + "...";
+    		}
+    		el.text(text);
+    	});
+    }
+    
+    initInputFocus = function() {
+    	setTimeout(function() {
+        	$('form:first *:input[type!=hidden]:first').focus();
+        	$('form:first *:input[type!=hidden]:first').parent().find("label").addClass("active");    		
+    	}, 100);
+    }
 
     return {
         
@@ -223,6 +242,8 @@ var mf_base = function() {
             initAlerts();
             initConfirm();
             initDataTables();
+            initLimit();
+            initInputFocus();
             
             hideForeground();            
         },
@@ -254,9 +275,11 @@ var mf_base = function() {
         doAlertSet : function(alertSet) {
             for(k in alertSet) {
                 var alert = alertSet[k];
-                Materialize.toast(alert.message, alert.delay);
+                showAlert(alert.text, alert.type.toLowerCase(), 0, alert.delay);
             }
         }, 
+        
+        doShowAlert : showAlert, 
         
         doGetCurrentDate : function() {
         	var today = new Date();
