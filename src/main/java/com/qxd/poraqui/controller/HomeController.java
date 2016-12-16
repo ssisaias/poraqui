@@ -2,15 +2,18 @@ package com.qxd.poraqui.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.qxd.poraqui.enumtype.TipoAcessibilidade;
 
 @Controller
 public class HomeController {
 
-	@RequestMapping(value={"/bla"}, method = {RequestMethod.GET, RequestMethod.POST})
-	public String uahauh(){
-		System.out.println("HIT");
-		return "classpath:templates/index";
+
+	@RequestMapping("/")
+	public ModelAndView index(){
+		return new ModelAndView("views/index").addObject("acessibilidades", TipoAcessibilidade.values());
+
 	}
 	
 }
