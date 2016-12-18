@@ -11,30 +11,31 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
 public class Avaliacao {
 	
-	@Id
-	@GeneratedValue
+	//@Id
+	//@GeneratedValue
 	private Long id;
 	
-	@Column
+	//@Column
 	@Size(max=1024)
 	private String comentario;
 
-	@Column
+	//@Column
 	private int value;
 	
-	@Column
+	//@Column
 	@Temporal(TemporalType.TIMESTAMP) 
 	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date data;
 	
-	@ManyToOne
+	//@ManyToOne
 	@JsonBackReference
 	private Local local;
 

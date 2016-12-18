@@ -174,7 +174,7 @@ var addLocal = function(l) {
 	
 	card.find(".btn-remover").click(function() {
 		$.ajax({
-		    url: '/api/local/' + l.id,
+		    url: '/api/local/' + String(l.id),
 		    type: 'DELETE',
 		    contentType: 'application/json; charset=utf-8',
 		    dataType: 'json',

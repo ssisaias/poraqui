@@ -10,14 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.data.repository.NoRepositoryBean;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.qxd.poraqui.enumtype.TipoAcessibilidade;
 
-@Entity
 public class Local {
-	@Id
-	@GeneratedValue
-	private Long id;
+	
+	private String id;
 	
 	private String nome;
 	private String descricao;
@@ -28,13 +28,13 @@ public class Local {
 	@Enumerated(EnumType.STRING)
 	private TipoAcessibilidade acessibilidade;
 	
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE }, mappedBy = "local")
-	@JsonManagedReference
-	private List<Avaliacao> avaliacoes;
+	//@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE }, mappedBy = "local")
+	//@JsonManagedReference
+	//private List<Avaliacao> avaliacoes;
 
 	public Local() {}
 
-	public Local(Long id, String nome, String descricao, double latitude, double longitude,
+	public Local(String id, String nome, String descricao, double latitude, double longitude,
 			TipoAcessibilidade acessibilidade, List<Avaliacao> avaliacoes) {
 		super();
 		this.id = id;
@@ -43,16 +43,18 @@ public class Local {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.acessibilidade = acessibilidade;
-		this.avaliacoes = avaliacoes;
+		//this.avaliacoes = avaliacoes;
 	}
 
+	public Local(String id) {
+		this.id = id;
+	}
 
-
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-
-	public void setId(Long id) {
+	
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -96,12 +98,12 @@ public class Local {
 		this.acessibilidade = acessibilidade;
 	}
 
-	public List<Avaliacao> getAvaliacoes() {
-		return avaliacoes;
-	}
-	
-	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
-		this.avaliacoes = avaliacoes;
-	}
+//	public List<Avaliacao> getAvaliacoes() {
+//		return avaliacoes;
+//	}
+//	
+//	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+//		this.avaliacoes = avaliacoes;
+//	}
 	
 }

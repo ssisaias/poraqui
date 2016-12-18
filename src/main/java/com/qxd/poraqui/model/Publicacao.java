@@ -10,13 +10,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
+//@Entity
+@NoRepositoryBean
 public class Publicacao {
 	
-	@Id
-	@GeneratedValue
+	//@Id
+	//@GeneratedValue
 	private Long id;
 	
 	@Size(max=1024)
@@ -26,7 +28,7 @@ public class Publicacao {
 	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date data;
 	
-	@ManyToOne
+	//@ManyToOne
 	private Local local;
 
 	public Long getId() {
