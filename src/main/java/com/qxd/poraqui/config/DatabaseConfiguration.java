@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JacksonJsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import com.qxd.poraqui.model.Avaliacao;
 import com.qxd.poraqui.model.Local;
 
 
@@ -25,8 +26,14 @@ public class DatabaseConfiguration {
     }
     
     @Bean
-    public JacksonJsonRedisSerializer<Local> jacksonJsonRedisJsonSerializer() {
+    public JacksonJsonRedisSerializer<Local> jacksonJsonRedisJsonSerializerLocal() {
     	JacksonJsonRedisSerializer<Local> jacksonJsonRedisJsonSerializer = new JacksonJsonRedisSerializer<>(Local.class);
+    	return jacksonJsonRedisJsonSerializer;
+    }
+    
+    @Bean
+    public JacksonJsonRedisSerializer<Avaliacao> jacksonJsonRedisJsonSerializerAvalicao() {
+    	JacksonJsonRedisSerializer<Avaliacao> jacksonJsonRedisJsonSerializer = new JacksonJsonRedisSerializer<>(Avaliacao.class);
     	return jacksonJsonRedisJsonSerializer;
     }
     
@@ -35,7 +42,16 @@ public class DatabaseConfiguration {
 		RedisTemplate<String, Local> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnFactory);
 		redisTemplate.setKeySerializer(stringRedisSerializer());
-		redisTemplate.setValueSerializer(jacksonJsonRedisJsonSerializer());
+		redisTemplate.setValueSerializer(jacksonJsonRedisJsonSerializerLocal());
+		return redisTemplate;
+	}
+	
+	@Bean
+	public RedisTemplate<String, Avaliacao> redisTemplateAval() {
+		RedisTemplate<String, Avaliacao> redisTemplate = new RedisTemplate<>();
+		redisTemplate.setConnectionFactory(jedisConnFactory);
+		redisTemplate.setKeySerializer(stringRedisSerializer());
+		redisTemplate.setValueSerializer(jacksonJsonRedisJsonSerializerAvalicao());
 		return redisTemplate;
 	}
 }

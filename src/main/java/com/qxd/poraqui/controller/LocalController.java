@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qxd.poraqui.model.Avaliacao;
 import com.qxd.poraqui.model.Local;
+import com.qxd.poraqui.service.AvaliacaoService;
 import com.qxd.poraqui.service.LocalService;
 import com.qxd.util.alert.Response;
 
@@ -24,6 +25,9 @@ public class LocalController {
 	@Inject
 	private LocalService localService;
 	
+	@Inject
+	private AvaliacaoService avaliacaoService;
+	
 	@GetMapping(value = "")
 	public Response getAll(){
 		return new Response().withDoneStatus().withObject(localService.findAll());
@@ -32,7 +36,7 @@ public class LocalController {
 	@PostMapping(value = "")
 	public Response save(@RequestBody Local local){
 		//atribui um id pro Local
-		local.setId(String.valueOf(local.getLatitude()+String.valueOf(local.getLongitude())));
+		local.setId("loc"+String.valueOf(local.getLatitude()+String.valueOf(local.getLongitude())));
 		localService.save(local);
 		local = localService.findById(local.getId());
 		if(local != null) {			
@@ -51,18 +55,18 @@ public class LocalController {
 		
 	}
 	
-	@PostMapping(value = "/avaliar/{localId}")
+	@PostMapping(value = "/avaliar/{localId:.+}")
 	public Response addAvaliation(@RequestBody Avaliacao avaliacao, @PathVariable("localId") String localId){
-		return new Response().withFailStatus().withObject(avaliacao).withErrorMessage("Nao implementado");
-//		avaliacao.setLocal(localService.findById(localId));
-//		avaliacao.setData(new Date());
-//		avaliacao = localService.addAvaliacao(avaliacao);
-//		
-//		if(avaliacao != null) {			
-//			return new Response().withDoneStatus().withObject(avaliacao).withSuccessMessage("Avaliacao adicionada!");
-//		}
-//		
-//		return new Response().withFailStatus().withObject(avaliacao).withErrorMessage("Erro ao adicionar avaliação!");
+		avaliacao.setLocal(localService.findById(localId));
+		avaliacao.setData(new Date());
+		avaliacaoService.save(avaliacao);
+		avaliacao = avaliacaoService.findById(avaliacao.getId());
+		
+		if(avaliacao != null) {			
+			return new Response().withDoneStatus().withObject(avaliacao).withSuccessMessage("Avaliacao adicionada!");
+		}
+		
+		return new Response().withFailStatus().withObject(avaliacao).withErrorMessage("Erro ao adicionar avaliação!");
 	}
 	
 }

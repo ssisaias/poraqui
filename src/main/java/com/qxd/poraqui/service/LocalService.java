@@ -1,21 +1,16 @@
 package com.qxd.poraqui.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import com.qxd.poraqui.model.Avaliacao;
+import com.google.common.collect.Lists;
 import com.qxd.poraqui.model.Local;
 import com.qxd.poraqui.repository.LocalRepository;
-import com.google.common.collect.Lists;
 
 @Service
 public class LocalService {

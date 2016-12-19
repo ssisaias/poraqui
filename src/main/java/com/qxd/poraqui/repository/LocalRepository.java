@@ -19,8 +19,12 @@ public class LocalRepository  {
 	@Inject
 	private RedisTemplate<String, Local> redisTemplate;
 	
+	@Inject
+	private RedisTemplate<String, String> strTemplate;
+	
 	public void save(Local local) {
 		redisTemplate.opsForValue().set(local.getId(), local);
+		strTemplate.opsForValue().set("avalCount:"+local.getId(), "0"); //Contador de avaliacoes desse local (postagem)
 	}
  
 	public Local findById(String key) {
@@ -30,7 +34,7 @@ public class LocalRepository  {
 	public List<Local> findAll() {
 		List<Local> locals = new ArrayList<>();
 		
-		Set<String> keys = redisTemplate.keys("*");
+		Set<String> keys = redisTemplate.keys("loc*");
 		Iterator<String> it = keys.iterator();
 		
 		while(it.hasNext()){

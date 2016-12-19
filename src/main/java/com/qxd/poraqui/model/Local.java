@@ -35,7 +35,7 @@ public class Local {
 	public Local() {}
 
 	public Local(String id, String nome, String descricao, double latitude, double longitude,
-			TipoAcessibilidade acessibilidade, List<Avaliacao> avaliacoes) {
+			TipoAcessibilidade acessibilidade) {
 		super();
 		this.id = id;
 		this.nome = nome;

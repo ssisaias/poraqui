@@ -11,7 +11,7 @@ $(document).ready(function() {
 		
 		var data = serializeForm($("#modal-avaliar form"));
 		$("#modal-avaliar form")[0].reset();
-		var localId = parseInt(data.local_id);
+		var localId = String(data.local_id);
 		var data = JSON.stringify(data);
 		console.log(data);
 		$.ajax({

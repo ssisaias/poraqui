@@ -21,7 +21,7 @@ public class Avaliacao {
 	
 	//@Id
 	//@GeneratedValue
-	private Long id;
+	private String id;
 	
 	//@Column
 	@Size(max=1024)
@@ -36,14 +36,28 @@ public class Avaliacao {
 	private Date data;
 	
 	//@ManyToOne
-	@JsonBackReference
+	//@JsonBackReference
 	private Local local;
+	
+	public Avaliacao() {}
+	
+	public Avaliacao(String id, String comentario, int value, Date data, Local local) {
+		this.id = id;
+		this.comentario = comentario;
+		this.value = value;
+		this.data = data;
+		this.local = local;
+	}
 
-	public Long getId() {
+	public Avaliacao(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
